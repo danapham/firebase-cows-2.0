@@ -1,0 +1,9 @@
+.vscode/
+.DS_Store
+package-lock.json
+node_modules/
+dist/
+build/
+.firebase/
+# TODO: TALK ABOUT THIS:
+src/javascripts/helpers/apiKeys.json

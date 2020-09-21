@@ -1,0 +1,26 @@
+{
+	"cow1": {
+		"name": "Bessie",
+		"breed": "Jersey",
+		"weight": 30,
+		"location": "NSS"
+  },
+  "cow2": {
+		"name": "Suzzie",
+		"breed": "Jersey",
+		"weight": 3000,
+		"location": "Green Hills Mall"
+  },
+  "cow3": {
+		"name": "Steak",
+		"breed": "Angus",
+		"weight": 50000000000,
+		"location": "NSS"
+	},
+  "cow4": {
+		"name": "Steak",
+		"breed": "Angus",
+		"weight": 200,
+		"location": "NSS"
+	}
+}
