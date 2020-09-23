@@ -1,5 +1,6 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
+import cowData from './cowData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
@@ -54,4 +55,28 @@ const setCurrentFarmer = (farmerObj) => {
   return farmer;
 };
 
-export default { setCurrentFarmer, getAllFarmers };
+const getSingleFarmer = (farmerUid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/farmers.json?orderBy="uid"&equalToo="${farmerUid}"`)
+    .then((response) => {
+      const farmer = Object.values(response.data);
+      const thisFarmer = farmer[0];
+      resolve(thisFarmer);
+    }).catch((error) => reject(error));
+});
+
+const deleteFarmer = (farmerUid) => {
+  cowData.getFarmerCows(farmerUid)
+    .then((response) => {
+      response.forEach((item) => {
+        cowData.deleteCow(item.firebaseKey);
+      });
+    })
+    .then(() => {
+      getSingleFarmer(farmerUid)
+        .then((response) => {
+          axios.delete(`${baseUrl}/farmers/${response.firebaseKey}.json`);
+        });
+    });
+};
+
+export default { setCurrentFarmer, getAllFarmers, deleteFarmer };
