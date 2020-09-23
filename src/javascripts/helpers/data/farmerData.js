@@ -21,7 +21,11 @@ const checkIfFarmerExistsInFirebase = (farmer) => {
     .get(`${baseUrl}/farmers.json?orderBy="uid"&equalTo="${farmer.uid}"`)
     .then((resp) => {
       if (Object.values(resp.data).length === 0) {
-        axios.post(`${baseUrl}/farmers.json`, farmer);
+        axios.post(`${baseUrl}/farmers.json`, farmer)
+          .then((response) => {
+            const update = { firebaseKey: response.data.name };
+            axios.patch(`${baseUrl}/farmers/${response.data.name}.json`, update);
+          }).catch((error) => console.warn(error));
       } else {
         console.warn('User Already Exists');
       }
