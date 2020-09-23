@@ -1,4 +1,5 @@
 import farmerData from '../../helpers/data/farmerData';
+import cowData from '../../helpers/data/cowData';
 
 const cowForm = () => {
   $('#cow-form').html(
@@ -36,6 +37,41 @@ const cowForm = () => {
     response.forEach((item) => {
       $('select').append(`<option value="${item.uid}">${item.name}</option>`);
     });
+  });
+
+  $('#add-cow-btn').on('click', (e) => {
+    e.preventDefault();
+
+    const data = {
+      breed: $('#breed').val() || false,
+      location: $('#location').val() || false,
+      name: $('#name').val() || false,
+      weight: $('#weight').val() || false,
+      farmerUid: $('#farmer').val() || false
+    };
+
+    console.warn(data);
+
+    if (Object.values(data).includes(false)) {
+      $('#error-message').html('<div class="alert alert-danger" role="alert">Please complete all fields</div>');
+    } else {
+      $('#error-message').html('');
+
+      cowData.addCow(data)
+        .then(() => {
+          $('#success-message').html('<div class="alert alert-success" role="alert">Your Cow Was Added!</div>');
+        }).catch((error) => console.warn(error));
+
+      setTimeout(() => {
+        $('#success-message').html('');
+      }, 3000);
+
+      $('#breed').val('');
+      $('#location').val('');
+      $('#name').val('');
+      $('#weight').val('');
+      $('#farmer').val('');
+    }
   });
 };
 
