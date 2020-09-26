@@ -5,7 +5,7 @@ const farmerMaker = (farmerObject) => {
                       <img class="card-img-top" src="${farmerObject.image}" alt="Card image cap">
                       <div class="card-body">
                         <h5 class="card-title">Farmer ${farmerObject.name}</h5>
-                        <a href="#" class="btn btn-primary" id=${farmerObject.uid}>See Cows</a>
+                        <a href="#" class="btn btn-primary see-cows" id=${farmerObject.uid}>See Cows</a>
                         <a href="#" id="${farmerObject.uid}" class="btn btn-danger delete-farmer">Delete Farmer</a>
                       </div>
                     </div>`;

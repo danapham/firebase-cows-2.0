@@ -20,4 +20,15 @@ const getDataForCowsView = () => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getDataForCowsView };
+const getSingleFarmerView = (farmerUid) => new Promise((resolve, reject) => {
+  farmerData.getSingleFarmer(farmerUid)
+    .then((farmerResponse) => {
+      cowData.getFarmerCows(farmerResponse.uid)
+        .then((cowResponse) => {
+          const finalObject = { farmer: farmerResponse, cows: cowResponse };
+          resolve(finalObject);
+        });
+    }).catch((error) => reject(error));
+});
+
+export default { getDataForCowsView, getSingleFarmerView };
